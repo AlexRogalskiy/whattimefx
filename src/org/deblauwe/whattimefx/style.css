@@ -1,0 +1,13 @@
+.time-label
+{
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-size: 5em;
+}
+
+.hexcolor-label
+{
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-size: 3em;
+}
