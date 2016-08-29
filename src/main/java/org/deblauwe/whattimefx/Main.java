@@ -4,8 +4,6 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -18,10 +16,12 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Main extends Application {
+
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private Label timeLabel;
     private Label hexColorLabel;
@@ -64,17 +64,11 @@ public class Main extends Application {
 
     private void bindToTime() {
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0),
-                             new EventHandler<ActionEvent>() {
-                                 @Override
-                                 public void handle(ActionEvent actionEvent) {
-                                     Calendar time = Calendar.getInstance();
-                                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-                                     setText(simpleDateFormat.format(time.getTime()));
-                                 }
+                new KeyFrame(Duration.seconds(1),
+                             actionEvent -> {
+                                 setText(DATE_TIME_FORMATTER.format(ZonedDateTime.now()));
                              }
-                ),
-                new KeyFrame(Duration.seconds(1))
+                )
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
